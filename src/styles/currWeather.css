@@ -1,0 +1,57 @@
+.current-weather {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 15px;
+
+  background-color: rgba(54, 54, 54, 0.4);
+  border-radius: 16px;
+  color: white;
+
+  align-items: center;
+}
+
+.current-weather h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.current-weather h2,
+h3 {
+  margin: 8px 0;
+}
+
+.current-weather h3 {
+  font-weight: normal;
+}
+
+.temp {
+  font-size: 4rem;
+  margin: 0;
+}
+
+.stats {
+  margin-top: 15px;
+
+  background-color: rgba(54, 54, 54, 0.4);
+  border-radius: 16px;
+  color: white;
+
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats div {
+  display: flex;
+  align-items: center;
+}
+
+.stats p {
+  margin: 8px 0;
+
+  &:nth-child(2) {
+    flex: 1;
+    padding-left: 5px;
+  }
+}

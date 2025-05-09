@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo"></div>
+        <form action="" id="city-form">
+          <input type="text" id="input-city" placeholder="Enter City" />
+          <button type="submit" id="city-submit">
+            <img
+              src="images/icons/search.svg"
+              alt="Go"
+              width="20"
+              height="20"
+              title="Search"
+            />
+          </button>
+        </form>
+        <div class="settings"></div>
+      </header>
+
+      <main>
+        <div class="current-weather">
+          <div class="left">
+            <h3>
+              <img src="images/icons/mapmarker.svg" alt="" height="20px" />New
+              York
+            </h3>
+            <h1 class="temp">30&deg;C</h1>
+            <h2>Partially cloudy</h2>
+            <h3>Feels like: 28&deg;C</h3>
+            <h3>New York, US</h3>
+          </div>
+          <div class="right">
+            <div class="icon">
+              <img src="images/weather/clear-day.svg" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="stats">
+          <div>
+            <img src="images/icons/umbrella.svg" alt="" width="30" />
+            <p>Precipitaion</p>
+            <p>12</p>
+          </div>
+          <div>
+            <img src="images/icons/uv-index.svg" alt="" width="30" />
+            <p>UV Index</p>
+            <p>12</p>
+          </div>
+          <div>
+            <img src="images/icons/wind.svg" alt="" width="30" />
+            <p>Wind speed</p>
+            <p>12</p>
+          </div>
+          <div>
+            <img src="images/icons/humidity.svg" alt="" width="30" />
+            <p>Humidity</p>
+            <p>12</p>
+          </div>
+        </div>
+        <div class="hourly-forcast"></div>
+        <div class="daily-forcast"></div>
+      </main>
+    </div>
+  </body>
+</html>

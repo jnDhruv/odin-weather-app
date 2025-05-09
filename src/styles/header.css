@@ -1,0 +1,54 @@
+:root {
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --shadow-focus-color: rgba(0, 0, 255, 0.6);
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  margin: 15px 0;
+  width: 100%;
+}
+
+#city-form {
+  justify-self: center;
+  display: flex;
+  box-shadow: 0 0 5px var(--shadow-color);
+  border-radius: 16px;
+
+  transition: box-shadow 0.3s;
+
+  width: 100%;
+  max-width: 500px;
+
+  & input, button {
+    font-family: inherit;
+  }
+}
+
+#input-city {
+  flex: 1;
+  font-size: 100%;
+  border-radius: 16px 0 0 16px;
+  border: none;
+
+  padding: 8px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#city-submit {
+  border-radius: 0 16px 16px 0;
+  border: none;
+  background-color: white;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;  
+}
+
+#city-form:has(#input-city:focus) {
+  box-shadow: 0 0 5px var(--shadow-focus-color);
+}
