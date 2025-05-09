@@ -38,16 +38,18 @@ async function processCurrent(current) {
     conditions,
     uvindex,
     humidity,
+    windspeed,
   } = current;
 
   return {
     datetime,
     temp,
     feelslike,
-    precipprob,
     icon,
     conditions,
+    precipprob,
     uvindex,
+    windspeed,
     humidity,
   };
 }
