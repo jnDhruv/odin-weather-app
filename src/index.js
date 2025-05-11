@@ -15,3 +15,9 @@ cityForm.addEventListener("submit", async (e) => {
   }
   (await handler).updateData(city);
 });
+
+async function init() {
+  (await handler).updateData("Delhi");
+}
+
+init();

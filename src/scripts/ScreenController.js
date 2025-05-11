@@ -22,22 +22,34 @@ const ScreenController = async function () {
     if (!data) {
       return;
     }
+
+    const main = document.querySelector("main");
+    main.innerHTML = "";
+
+    const currDataDiv = createDiv();
+    currDataDiv.classList.add("current-weather");
+
+    const currDataLeft = createDiv();
+    currDataLeft.classList.add("left");
+
+    const currDataRight = createDiv();
+    currDataRight.classList.add("right");
+
+    const statsData = createDiv();
+    statsData.classList.add("stats");
+
     // Updating theme & icon
     themeHandler.setTheme(data.currentConditions.icon);
-    const imgObj = (await themeHandler.getIcon(data.currentConditions.icon)).default;
-    const currDataIcon = document.querySelector(".current-weather .right");
-    currDataIcon.innerHTML = "";
-    currDataIcon.appendChild(createImg(imgObj));
+    const imgObj = (await themeHandler.getIcon(data.currentConditions.icon))
+      .default;
+    currDataRight.appendChild(createImg(imgObj));
 
     // Writing Current Data
-    const currData = document.querySelector(".current-weather .left");
-    currData.innerHTML = "";
-
     const locH3 = createHeading("h3", data.address);
     const mapImg = createImg(mapIcon, 20);
     locH3.prepend(mapImg);
 
-    currData.append(
+    currDataLeft.append(
       locH3,
       createHeading(
         "h1",
@@ -53,9 +65,6 @@ const ScreenController = async function () {
     );
 
     // Writing Stats data
-    const statsData = document.querySelector(".stats");
-    statsData.innerHTML = "";
-
     const descP = createP(data.description, "description");
     const precipDiv = createDiv(
       createImg(precipIcon, 30),
@@ -78,18 +87,21 @@ const ScreenController = async function () {
       createP(data.currentConditions.humidity),
     );
 
-    statsData.append(
-      createDiv(descP),
-      precipDiv,
-      uvDiv,
-      windDiv,
-      humidDiv,
-    );
+    statsData.append(createDiv(descP), precipDiv, uvDiv, windDiv, humidDiv);
+    currDataDiv.append(currDataLeft, currDataRight);
+
+    main.append(currDataDiv, statsData);
   };
 
   const updateData = async (city) => {
-    data = await APIHandler.getData(city);
-    render();
+    const main = document.querySelector("main");
+    main.classList.add("loading");
+    try {
+      data = await APIHandler.getData(city);
+      render();
+    } finally {
+      setTimeout(() => main.classList.remove("loading"), 1000);
+    }
   };
 
   const updateUnit = async (unit) => {

@@ -18,4 +18,10 @@ body {
 main {
   max-width: 900px;
   margin: 0 5px;
+  filter: blur(0px);
+  transition: filter 1s;
+}
+
+main.loading {
+  filter: blur(10px);
 }
