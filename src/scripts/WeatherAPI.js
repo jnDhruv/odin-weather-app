@@ -1,24 +1,30 @@
+const units = {
+  metric: "C",
+  us: "F",
+};
+
 function WeatherAPI() {
   const KEY = "LWZARZGDDUQZRGQQCC3PLXZ22";
   const baseURL =
     "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
 
+  let unitGroup = "metric";
   const getData = async function (location) {
-    const url = baseURL + location + "?key=" + KEY;
+    const url = baseURL + location + "?key=" + KEY + "&unitGroup=" + unitGroup;
     const response = await fetch(url, { mode: "cors" });
     const data = await response.json();
     return await processData(data);
   };
 
-  return { getData };
+  const setUnitGroup = (group) => (unitGroup = group);
+
+  const getTempUnit = () => units[unitGroup];
+
+  return { getData, setUnitGroup, getTempUnit };
 }
 
 const processData = async function (data) {
-  const {
-    address,
-    resolvedAddress,
-    description,
-  } = data;
+  const { address, resolvedAddress, description } = data;
 
   const output = { address, resolvedAddress, description };
 

@@ -6,16 +6,16 @@ body {
   padding: 0;
   margin: 0;
   font-family: Montserrat, Arial;
-
-  margin-bottom: 15px;
 }
 
 .container {
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 15px;
 }
 
 main {
   max-width: 900px;
+  margin: 0 5px;
 }

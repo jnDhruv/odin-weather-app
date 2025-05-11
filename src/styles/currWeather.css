@@ -42,9 +42,14 @@ h3 {
   flex-direction: column;
 }
 
-.stats div {
+.stats > div {
   display: flex;
   align-items: center;
+}
+
+.stats .description {
+  font-size: 1.17em;
+  font-weight: bold;
 }
 
 .stats p {

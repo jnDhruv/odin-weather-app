@@ -13,7 +13,7 @@
     />
   </head>
   <body>
-    <div class="container">
+    <div class="container default">
       <header>
         <div class="logo"></div>
         <form action="" id="city-form">
@@ -35,8 +35,7 @@
         <div class="current-weather">
           <div class="left">
             <h3>
-              <img src="images/icons/mapmarker.svg" alt="" height="20px" />New
-              York
+              <img src="images/icons/mapmarker.svg" alt="" width="20" />New York
             </h3>
             <h1 class="temp">30&deg;C</h1>
             <h2>Partially cloudy</h2>
@@ -51,24 +50,27 @@
         </div>
         <div class="stats">
           <div>
+            <h3 id="conditions">Similar temperatures continuing with no rain expected.</h3>
+          </div>
+          <div>
             <img src="images/icons/umbrella.svg" alt="" width="30" />
             <p>Precipitaion</p>
-            <p>12</p>
+            <p id="precip-value">12</p>
           </div>
           <div>
             <img src="images/icons/uv-index.svg" alt="" width="30" />
             <p>UV Index</p>
-            <p>12</p>
+            <p id="uv-value">12</p>
           </div>
           <div>
             <img src="images/icons/wind.svg" alt="" width="30" />
             <p>Wind speed</p>
-            <p>12</p>
+            <p id="wind-value">12</p>
           </div>
           <div>
             <img src="images/icons/humidity.svg" alt="" width="30" />
             <p>Humidity</p>
-            <p>12</p>
+            <p id="humid-value">12</p>
           </div>
         </div>
         <div class="hourly-forcast"></div>
