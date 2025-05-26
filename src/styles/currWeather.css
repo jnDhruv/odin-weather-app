@@ -1,9 +1,13 @@
+:root {
+  --div-background-color: rgba(54, 54, 54, 0.4)
+}
+
 .current-weather {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 15px;
 
-  background-color: rgba(54, 54, 54, 0.4);
+  background-color: var(--div-background-color);
   border-radius: 16px;
   color: white;
 
@@ -33,7 +37,7 @@ h3 {
 .stats {
   margin-top: 15px;
 
-  background-color: rgba(54, 54, 54, 0.4);
+  background-color: var(--div-background-color);
   border-radius: 16px;
   color: white;
 
