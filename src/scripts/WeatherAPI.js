@@ -88,9 +88,9 @@ function processDay(dayObj) {
   };
 }
 
-async function processHour(hour) {
-  const { datetime, temp, precipprob, icon } = hour;
-  return { datetime, temp, precipprob, icon };
+function processHour(hour) {
+  const { datetime, uvindex, temp, precipprob, icon } = hour;
+  return { datetime, uvindex, temp, precipprob, icon };
 }
 
 export default WeatherAPI();
