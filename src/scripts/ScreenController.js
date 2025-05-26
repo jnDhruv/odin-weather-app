@@ -4,6 +4,7 @@ import ThemeHandler from "./Theme.js";
 
 // CSS
 import "../styles/currWeather.css";
+import "../styles/hourly.css";
 
 // Images
 import mapIcon from "../images/icons/mapmarker.svg";
@@ -16,7 +17,7 @@ const ScreenController = async function () {
   const APIHandler = WeatherAPI;
   const themeHandler = ThemeHandler;
 
-  let data = await APIHandler.getData("vadodara");
+  let data = await APIHandler.getData("Delhi");
 
   const render = async () => {
     if (!data) {
@@ -90,7 +91,33 @@ const ScreenController = async function () {
     statsData.append(createDiv(descP), precipDiv, uvDiv, windDiv, humidDiv);
     currDataDiv.append(currDataLeft, currDataRight);
 
-    main.append(currDataDiv, statsData);
+    const hourlyDiv = createDiv();
+    hourlyDiv.classList.add("hourly");
+
+    let currHour = new Date().getHours();
+
+    for (let i = currHour; i < 24; i++) {
+      const hourData = data.days[0].hours[i];
+      const hourCardDiv = createDiv(
+        createHeading("h3", hourData.datetime.slice(0, 5)),
+        createImg((await ThemeHandler.getIcon(hourData.icon)).default, 50),
+        createHeading(
+          "h3",
+          `${Math.floor(hourData.temp)}&deg;${APIHandler.getTempUnit()}`,
+        ),
+        createDiv(
+          createDiv(createImg(uvIcon, 20), createP(hourData.uvindex)),
+          createDiv(
+            createImg(precipIcon, 20),
+            createP(Math.floor(hourData.precipprob) + "%"),
+          ),
+        ),
+      );
+      hourCardDiv.classList.add("hour-card");
+      hourlyDiv.appendChild(hourCardDiv);
+    }
+
+    main.append(currDataDiv, statsData, hourlyDiv);
   };
 
   const updateData = async (city) => {

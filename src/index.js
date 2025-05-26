@@ -1,7 +1,8 @@
 import ScreenController from "./scripts/ScreenController";
 
 import "./styles/general.css";
-import "./styles/header.css"
+import "./styles/header.css";
+import "./styles/mediaQueries.css";
 
 const handler = ScreenController;
 const cityForm = document.getElementById("city-form");
