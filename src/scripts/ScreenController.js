@@ -17,7 +17,8 @@ const ScreenController = async function () {
   const APIHandler = WeatherAPI;
   const themeHandler = ThemeHandler;
 
-  let data = await APIHandler.getData("Delhi");
+  let currCity = "Delhi";
+  let data = await APIHandler.getData(currCity);
 
   const render = async () => {
     if (!data) {
@@ -125,6 +126,7 @@ const ScreenController = async function () {
     main.classList.add("loading");
     try {
       data = await APIHandler.getData(city);
+      currCity = city;
       render();
     } finally {
       setTimeout(() => main.classList.remove("loading"), 1000);
@@ -133,7 +135,7 @@ const ScreenController = async function () {
 
   const updateUnit = async (unit) => {
     APIHandler.setUnitGroup(unit);
-    updateData();
+    updateData(currCity);
   };
 
   return {

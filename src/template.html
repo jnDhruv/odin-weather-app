@@ -28,10 +28,33 @@
             />
           </button>
         </form>
-        <div class="settings"></div>
+        <div class="settings">
+          <button>
+            <img
+              src="images/icons/settings.svg"
+              alt="Unit"
+              width="30"
+              title="Settings"
+            />
+          </button>
+        </div>
       </header>
 
       <main></main>
     </div>
+
+    <dialog class="settings-diag">
+      <h1>Settings</h1>
+      <form action="#">
+        <div>
+          <label for="unitGroup">Unit group:</label>
+          <select name="unitGroup" id="unitGroup">
+            <option value="metric">&deg;C</option>
+            <option value="us">&deg;F</option>
+          </select>
+        </div>
+        <input type="submit" value="Save" />
+      </form>
+    </dialog>
   </body>
 </html>

@@ -1,0 +1,47 @@
+.settings-diag {
+  border-radius: 16px;
+  outline: none;
+  border: none;
+
+  &::backdrop {
+    backdrop-filter: blur(10px);
+  }
+}
+
+.settings-diag h1 {
+  margin: 8px 0;
+}
+
+.settings-diag form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > div {
+    margin: 8px 0;
+  }
+
+  & input[type="select"] {
+    font-size: 100%;
+    font-family: inherit;
+  }
+
+  & input[type="submit"] {
+    margin-top: 10px;
+    color: white;
+    background-color: #00aaff;
+    border: none;
+    border-radius: 8px;
+    font-size: 100%;
+    font-family: inherit;
+    font-weight: bold;
+    padding: 4px 8px;
+
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #008ecc;
+    }
+  }
+}
