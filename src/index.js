@@ -14,11 +14,19 @@ cityForm.addEventListener("submit", async (e) => {
   if (city == "") {
     return;
   }
-  (await handler).updateData(city);
+  (await handler).updateData(titleize(city));
 });
 
 async function init() {
-  (await handler).updateData("Delhi");
+  (await handler).render();
+}
+
+function titleize(str) {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 init();
