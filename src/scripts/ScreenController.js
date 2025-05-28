@@ -26,7 +26,10 @@ const ScreenController = async function () {
     }
 
     const day = data.days[dayNumber];
-    let currHour = new Date().getHours();
+    let currHour = 0;
+    if (isToday(dayNumber)) {
+      currHour = getHoursByTimezone(data.timezone);
+    }
 
     const main = document.querySelector("main");
     main.innerHTML = "";
@@ -44,12 +47,17 @@ const ScreenController = async function () {
     statsData.classList.add("stats");
 
     // Updating theme & icon
-    themeHandler.setTheme(day.hours[currHour].icon);
-    const imgObj = (await themeHandler.getIcon(day.hours[currHour].icon))
-      .default;
+    let dataSource;
+    if (isToday(dayNumber)) {
+      dataSource = day.hours[currHour];
+    } else {
+      dataSource = day;
+    }
+    themeHandler.setTheme(dataSource.icon);
+    const imgObj = (await themeHandler.getIcon(dataSource.icon)).default;
     currDataRight.appendChild(createImg(imgObj));
 
-    // Writing Current Data
+    // Writing Current Data (or average data of the day if not today)
     const locH3 = createHeading("h3", data.address);
     const mapImg = createImg(mapIcon, 20);
     locH3.prepend(mapImg);
@@ -58,13 +66,13 @@ const ScreenController = async function () {
       locH3,
       createHeading(
         "h1",
-        `${Math.floor(day.hours[currHour].temp)}&deg;${APIHandler.getTempUnit()}`,
+        `${Math.floor(dataSource.temp)}&deg;${APIHandler.getTempUnit()}`,
         "temp",
       ),
-      createHeading("h2", day.hours[currHour].conditions),
+      createHeading("h2", dataSource.conditions),
       createHeading(
         "h3",
-        `Feels like: ${Math.floor(day.hours[currHour].feelslike)}&deg;${APIHandler.getTempUnit()}`,
+        `Feels like: ${Math.floor(dataSource.feelslike)}&deg;${APIHandler.getTempUnit()}`,
       ),
       createHeading("h3", data.resolvedAddress),
     );
@@ -74,22 +82,22 @@ const ScreenController = async function () {
     const precipDiv = createDiv(
       createImg(precipIcon, 30),
       createP("Precipitation %"),
-      createP(day.hours[currHour].precipprob),
+      createP(dataSource.precipprob),
     );
     const uvDiv = createDiv(
       createImg(uvIcon, 30),
       createP("UV Index"),
-      createP(day.hours[currHour].uvindex),
+      createP(dataSource.uvindex),
     );
     const windDiv = createDiv(
       createImg(windIcon, 30),
       createP("Wind Speed"),
-      createP(day.hours[currHour].windspeed),
+      createP(dataSource.windspeed),
     );
     const humidDiv = createDiv(
       createImg(humidIcon, 30),
       createP("Humidity %"),
-      createP(day.hours[currHour].humidity),
+      createP(dataSource.humidity),
     );
 
     statsData.append(createDiv(descP), precipDiv, uvDiv, windDiv, humidDiv);
@@ -99,7 +107,7 @@ const ScreenController = async function () {
     hourlyDiv.classList.add("hourly");
 
     for (let i = currHour; i < 24; i++) {
-      const hourData = data.days[0].hours[i];
+      const hourData = data.days[dayNumber].hours[i];
       const hourCardDiv = createDiv(
         createHeading("h3", hourData.datetime.slice(0, 5)),
         createImg((await ThemeHandler.getIcon(hourData.icon)).default, 50),
@@ -145,6 +153,20 @@ const ScreenController = async function () {
     updateUnit,
   };
 };
+
+function isToday(dayNumber) {
+  return dayNumber === 0;
+}
+
+function getHoursByTimezone(timezone) {
+  const options = {
+    timeZone: timezone,
+    hour: "numeric",
+    hour12: false,
+  };
+  const formattedTime = new Date().toLocaleString("en-US", options);
+  return parseInt(formattedTime);
+}
 
 function addClasses(element, ...classes) {
   if (classes.length !== 0) {
