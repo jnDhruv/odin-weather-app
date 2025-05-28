@@ -24,41 +24,14 @@ function WeatherAPI() {
 }
 
 const processData = async function (data) {
-  const { address, resolvedAddress, description } = data;
+  const { address, resolvedAddress, timezone } = data;
 
-  const output = { address, resolvedAddress, description };
+  const output = { address, resolvedAddress, timezone };
 
-  output.currentConditions = await processCurrent(data.currentConditions);
   output.days = await data.days.slice(0, 7).map((day) => processDay(day));
 
   return output;
 };
-
-async function processCurrent(current) {
-  const {
-    datetime,
-    temp,
-    feelslike,
-    precipprob,
-    icon,
-    conditions,
-    uvindex,
-    humidity,
-    windspeed,
-  } = current;
-
-  return {
-    datetime,
-    temp,
-    feelslike,
-    icon,
-    conditions,
-    precipprob,
-    uvindex,
-    windspeed,
-    humidity,
-  };
-}
 
 function processDay(dayObj) {
   const {
@@ -89,8 +62,28 @@ function processDay(dayObj) {
 }
 
 function processHour(hour) {
-  const { datetime, uvindex, temp, precipprob, icon } = hour;
-  return { datetime, uvindex, temp, precipprob, icon };
+  const {
+    datetime,
+    temp,
+    conditions,
+    feelslike,
+    uvindex,
+    precipprob,
+    humidity,
+    windspeed,
+    icon,
+  } = hour;
+  return {
+    datetime,
+    temp,
+    conditions,
+    feelslike,
+    uvindex,
+    precipprob,
+    humidity,
+    windspeed,
+    icon,
+  };
 }
 
 export default WeatherAPI();

@@ -20,10 +20,13 @@ const ScreenController = async function () {
   let currCity = "Delhi";
   let data = await APIHandler.getData(currCity);
 
-  const render = async () => {
+  const render = async (dayNumber = 0) => {
     if (!data) {
       return;
     }
+
+    const day = data.days[dayNumber];
+    let currHour = new Date().getHours();
 
     const main = document.querySelector("main");
     main.innerHTML = "";
@@ -41,8 +44,8 @@ const ScreenController = async function () {
     statsData.classList.add("stats");
 
     // Updating theme & icon
-    themeHandler.setTheme(data.currentConditions.icon);
-    const imgObj = (await themeHandler.getIcon(data.currentConditions.icon))
+    themeHandler.setTheme(day.hours[currHour].icon);
+    const imgObj = (await themeHandler.getIcon(day.hours[currHour].icon))
       .default;
     currDataRight.appendChild(createImg(imgObj));
 
@@ -55,38 +58,38 @@ const ScreenController = async function () {
       locH3,
       createHeading(
         "h1",
-        `${Math.floor(data.currentConditions.temp)}&deg;${APIHandler.getTempUnit()}`,
+        `${Math.floor(day.hours[currHour].temp)}&deg;${APIHandler.getTempUnit()}`,
         "temp",
       ),
-      createHeading("h2", data.currentConditions.conditions),
+      createHeading("h2", day.hours[currHour].conditions),
       createHeading(
         "h3",
-        `Feels like: ${Math.floor(data.currentConditions.feelslike)}&deg;${APIHandler.getTempUnit()}`,
+        `Feels like: ${Math.floor(day.hours[currHour].feelslike)}&deg;${APIHandler.getTempUnit()}`,
       ),
       createHeading("h3", data.resolvedAddress),
     );
 
     // Writing Stats data
-    const descP = createP(data.description, "description");
+    const descP = createP(day.description, "description");
     const precipDiv = createDiv(
       createImg(precipIcon, 30),
       createP("Precipitation %"),
-      createP(data.currentConditions.precipprob),
+      createP(day.hours[currHour].precipprob),
     );
     const uvDiv = createDiv(
       createImg(uvIcon, 30),
       createP("UV Index"),
-      createP(data.currentConditions.uvindex),
+      createP(day.hours[currHour].uvindex),
     );
     const windDiv = createDiv(
       createImg(windIcon, 30),
       createP("Wind Speed"),
-      createP(data.currentConditions.windspeed),
+      createP(day.hours[currHour].windspeed),
     );
     const humidDiv = createDiv(
       createImg(humidIcon, 30),
       createP("Humidity %"),
-      createP(data.currentConditions.humidity),
+      createP(day.hours[currHour].humidity),
     );
 
     statsData.append(createDiv(descP), precipDiv, uvDiv, windDiv, humidDiv);
@@ -94,8 +97,6 @@ const ScreenController = async function () {
 
     const hourlyDiv = createDiv();
     hourlyDiv.classList.add("hourly");
-
-    let currHour = new Date().getHours();
 
     for (let i = currHour; i < 24; i++) {
       const hourData = data.days[0].hours[i];
