@@ -11,7 +11,8 @@ const cityForm = document.getElementById("city-form");
 cityForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const city = document.getElementById("input-city").value;
+  const city = titleize(document.getElementById("input-city").value);
+  document.getElementById("input-city").value = city;
   if (city == "") {
     return;
   }
