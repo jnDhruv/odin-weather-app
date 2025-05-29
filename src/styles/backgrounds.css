@@ -10,8 +10,8 @@
   inherits: false;
 }
 
-.container {
-  background: linear-gradient(to bottom, var(--color1), var(--color2));
+body {
+  background: linear-gradient(to bottom, var(--color1), var(--color2)) no-repeat;
   transition:
     --color1 1s,
     --color2 1s;

@@ -57,7 +57,7 @@ const ThemeHandler = () => {
   };
 
   const renderTheme = () => {
-    const container = document.querySelector(".container");
+    const container = document.body;
     if (prevTheme) {
       container.classList.remove(prevTheme);
     }
