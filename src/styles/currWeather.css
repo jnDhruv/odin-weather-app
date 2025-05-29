@@ -34,6 +34,14 @@ h3 {
   margin: 0;
 }
 
+.current-weather h3:has(img) {
+  display: flex;
+
+  & img {
+    margin-right: 2px;
+  }
+}
+
 .stats {
   margin-top: 15px;
 

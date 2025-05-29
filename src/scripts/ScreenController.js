@@ -8,6 +8,7 @@ import "../styles/hourly.css";
 
 // Images
 import mapIcon from "../images/icons/mapmarker.svg";
+import dateIcon from "../images/icons/calendar.svg";
 import precipIcon from "../images/icons/umbrella.svg";
 import uvIcon from "../images/icons/uv-index.svg";
 import windIcon from "../images/icons/wind.svg";
@@ -25,6 +26,7 @@ const ScreenController = async function () {
       return;
     }
 
+    // Selecting correct data source
     const day = data.days[dayNumber];
     let currHour = 0;
     if (isToday(dayNumber)) {
@@ -62,8 +64,16 @@ const ScreenController = async function () {
     const mapImg = createImg(mapIcon, 20);
     locH3.prepend(mapImg);
 
+    const dateH3 = createHeading(
+      "h3",
+      getDateByTimezone(data.days[dayNumber].datetime, data.timezone),
+    );
+    const dateImg = createImg(dateIcon, 20);
+    dateH3.prepend(dateImg);
+
     currDataLeft.append(
       locH3,
+      dateH3,
       createHeading(
         "h1",
         `${Math.floor(dataSource.temp)}&deg;${APIHandler.getTempUnit()}`,
@@ -166,6 +176,18 @@ function getHoursByTimezone(timezone) {
   };
   const formattedTime = new Date().toLocaleString("en-US", options);
   return parseInt(formattedTime);
+}
+
+function getDateByTimezone(dateStr, timezone) {
+  const options = {
+    timeZone: timezone,
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour12: false,
+  };
+  const formattedDate = new Date(dateStr).toLocaleString("en-US", options);
+  return formattedDate;
 }
 
 function addClasses(element, ...classes) {
